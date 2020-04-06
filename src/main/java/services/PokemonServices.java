@@ -25,19 +25,17 @@ public class PokemonServices {
     }
 
     public List<Pokemon> findAll(){
-        List<Pokemon> allPokemon = new ArrayList<>();
         entityTransaction.begin();
         return entityManager.createQuery("SELECT h FROM Pokemon h", Pokemon.class).getResultList();
     }
 
-    public Pokemon updatePokemonName(Pokemon poke, String name){
+    public void updatePokemonName(Pokemon poke, String name){
         poke = findById(poke.getId());
         if(poke != null){
             entityTransaction.begin();
             poke.setName(name);
             entityTransaction.commit();
         }
-        return poke;
     }
 
     public void deletePokemon(Integer id){

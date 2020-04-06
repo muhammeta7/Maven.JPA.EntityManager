@@ -1,6 +1,8 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "pokemons")
@@ -11,6 +13,10 @@ public class Pokemon {
     private String name;
     private Integer primary_type;
     private Integer secondary_type;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "trainer_id")
+    @OrderBy
+    private List<PokemonTrainer> list;
 
     public Pokemon() {
     }
@@ -20,6 +26,7 @@ public class Pokemon {
         this.name = name;
         this.primary_type = primary_type;
         this.secondary_type = secondary_type;
+        list = new ArrayList<>();
     }
 
     @Column(name = "id")
@@ -58,5 +65,11 @@ public class Pokemon {
         this.secondary_type = secondary_type;
     }
 
+    public List<PokemonTrainer> getList() {
+        return list;
+    }
 
+    public void setList(List<PokemonTrainer> list) {
+        this.list = list;
+    }
 }
